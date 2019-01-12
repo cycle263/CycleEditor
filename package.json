@@ -13,5 +13,13 @@
     "draftjs"
   ],
   "author": "cycle263",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "draft-js": "^0.10.5",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
+  }
 }
