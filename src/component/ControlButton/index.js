@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import './index.css';
 
 class ControlButton extends Component {
   constructor(props) {
@@ -9,14 +10,17 @@ class ControlButton extends Component {
       this.props.onToggle(this.props.style);
     };
   }
-  
+
   render() {
-    const { active, label } = this.props;
+    const { active, label, isLast } = this.props;
     return (
       <span className={classnames({
-        controlBtn: true,
-        controlBtn_active: active,
-      })} onMouseDown={this.onToggle}>{label}</span>
+        'last-btn': isLast,
+        'control-btn': true,
+        'control-btn-active': active,
+      })} onMouseDown={this.onToggle}>
+        <button className="cc-btn"><span className={classnames(['cc-icon', `cc-icon-${label}`])}></span></button>
+      </span>
     )
   }
 };

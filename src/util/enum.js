@@ -1,8 +1,9 @@
 const INLINE_STYLES = [
-  { label: 'Bold', style: 'BOLD' },
-  { label: 'Italic', style: 'ITALIC' },
-  { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
+  { label: 'bold', style: 'BOLD' },
+  { label: 'italic', style: 'ITALIC' },
+  { label: 'underline', style: 'UNDERLINE' },
+  { label: 'monospace', style: 'CODE' },
+  { label: 'strikethrough', style: 'STRIKETHROUGH' },
 ];
 
 const BLOCK_TYPES = [
@@ -12,10 +13,10 @@ const BLOCK_TYPES = [
   { label: 'H4', style: 'header-four' },
   { label: 'H5', style: 'header-five' },
   { label: 'H6', style: 'header-six' },
-  { label: 'Blockquote', style: 'blockquote' },
-  { label: 'UL', style: 'unordered-list-item' },
-  { label: 'OL', style: 'ordered-list-item' },
-  { label: 'Code Block', style: 'code-block' },
+  { label: 'quote', style: 'blockquote' },
+  { label: 'uList', style: 'unordered-list-item' },
+  { label: 'oList', style: 'ordered-list-item' },
+  { label: 'codeblock', style: 'code-block' },
 ];
 
 export {

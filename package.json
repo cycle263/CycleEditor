@@ -18,7 +18,6 @@
   "author": "cycle263",
   "license": "ISC",
   "dependencies": {
-    "antd": "^3.12.4",
     "classnames": "^2.2.6",
     "draft-js": "^0.10.5",
     "react": "^16.7.0",

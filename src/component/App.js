@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
-import InlineControls from './InlineControls';
-import BlockControls from './BlockControls';
+import EditorControls from './EditorControls';
 import './App.css';
 // import image from '../logo.svg';
 
@@ -72,8 +71,7 @@ class CycleEditor extends Component {
       <div>
         <h2 style={{textAlign: 'center'}}>Cycle Rich Editor</h2>
         <div className="CycleEditor-root">
-          <InlineControls editorState={editorState} onToggle={this.toggleInlineStyle} />
-          <BlockControls editorState={editorState} onToggle={this.toggleBlockType} />
+          <EditorControls editorState={editorState} onBlockToggle={this.toggleBlockType} onInlineToggle={this.toggleInlineStyle} />
           <div className={className} onClick={this.focus}>
             <Editor editorState={editorState}
               blockStyleFn={getBlockStyle}
