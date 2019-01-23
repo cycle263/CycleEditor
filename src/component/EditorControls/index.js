@@ -17,6 +17,7 @@ const BlockControls = (props) => {
         <ControlButton
           isLast={BLOCK_TYPES.length === i + 1}
           key={type.label}
+          title={type.title}
           active={type.style === blockType}
           label={type.label}
           onToggle={props.onBlockToggle}
@@ -27,6 +28,7 @@ const BlockControls = (props) => {
         <ControlButton
           isLast={BLOCK_TYPES.length === i + 1}
           key={type.label}
+          title={type.title}
           active={curStyle.has(type.style)}
           label={type.label}
           onToggle={props.onInlineToggle}

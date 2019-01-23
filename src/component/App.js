@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
+import { Editor, EditorState, RichUtils, getDefaultKeyBinding, removeEditorStyles } from 'draft-js';
 import EditorControls from './EditorControls';
-import './App.css';
+import './App.scss';
 // import image from '../logo.svg';
 
 class CycleEditor extends Component {
@@ -27,6 +27,8 @@ class CycleEditor extends Component {
           this.onChange(newEditorState);
         }
         return;
+      case 83: // `S` key 
+        return 'cycle-editor-save';
     }
     return getDefaultKeyBinding(e);
   }
@@ -58,6 +60,12 @@ class CycleEditor extends Component {
     return false;
   }
 
+  onPaste = () => {
+    this.setState({
+      editorState: removeEditorStyles(this.state.editorState)
+    });
+  }
+
   render() {
     const { editorState } = this.state;
     let className = 'CycleEditor-editor';
@@ -75,11 +83,13 @@ class CycleEditor extends Component {
           <div className={className} onClick={this.focus}>
             <Editor editorState={editorState}
               blockStyleFn={getBlockStyle}
+              keyBindingFn={this.mapKeyToEditorCommand}
               handleKeyCommand={this.handleKeyCommand}
               placeholder="Enter some text..."
               customStyleMap={styleMap}
               ref={(ref) => this.editor = ref}
-              onChange={this.onChange} 
+              onChange={this.onChange}
+              onPaste={this.onPaste}
               spellCheck={true} />
           </div>
         </div>

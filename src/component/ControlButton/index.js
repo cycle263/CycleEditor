@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import './index.css';
+import './index.scss';
 
 class ControlButton extends Component {
   constructor(props) {
@@ -12,9 +12,9 @@ class ControlButton extends Component {
   }
 
   render() {
-    const { active, label, isLast } = this.props;
+    const { active, label, isLast, title } = this.props;
     return (
-      <span className={classnames({
+      <span title={title} className={classnames({
         'last-btn': isLast,
         'control-btn': true,
         'control-btn-active': active,
