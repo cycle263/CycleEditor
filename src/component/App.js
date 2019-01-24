@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils, getDefaultKeyBinding, removeEditorStyles } from 'draft-js';
 import EditorControls from './EditorControls';
+import './clean.scss';
 import './App.scss';
 // import image from '../logo.svg';
 
@@ -68,11 +69,13 @@ class CycleEditor extends Component {
 
   render() {
     const { editorState } = this.state;
+    let placeholder = 'Enter some text...';
     let className = 'CycleEditor-editor';
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
         className += ' CycleEditor-hidePlaceholder';
+        placeholder = null;
       }
     }
     return (
@@ -85,7 +88,7 @@ class CycleEditor extends Component {
               blockStyleFn={getBlockStyle}
               keyBindingFn={this.mapKeyToEditorCommand}
               handleKeyCommand={this.handleKeyCommand}
-              placeholder="Enter some text..."
+              placeholder={placeholder}
               customStyleMap={styleMap}
               ref={(ref) => this.editor = ref}
               onChange={this.onChange}

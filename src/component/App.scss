@@ -35,8 +35,8 @@
     position: relative;
     .public-DraftStyleDefault-ul,
     .public-DraftStyleDefault-ol {
-      margin: 16px 0;
-      padding-left: 16px;
+      margin: 0 0 16px 24px;
+      padding-left: 0;
     }
     .public-DraftStyleDefault-block {
       position: relative;
@@ -45,6 +45,15 @@
     .public-DraftStyleDefault-unorderedListItem,
     .public-DraftStyleDefault-orderedListItem  {
       position: relative;
+    }
+    .public-DraftStyleDefault-pre {
+      background-color: rgba(0,0,0,.05);
+      font-family: Inconsolata,Menlo,Consolas,monospace;
+      font-size: 13px;
+      padding: 16px;
+      > pre {
+        margin-bottom: 0;
+      }
     }
   }
   .public-DraftEditorPlaceholder-root {
