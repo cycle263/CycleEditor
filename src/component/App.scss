@@ -10,18 +10,19 @@
 }
 .CycleEditor-controls {
   margin-bottom: 5px;
-  .control-btn {
-    color: #999;
-    cursor: pointer;
+  .controls-area {
     display: inline-block;
-  }
-  .control-btn.last-btn {
-    border-right: 1px solid #eee;
-  }
-  .control-btn-active {
-    .cc-btn {
-      background-color: #eee;
-      color: #5890ff;
+    border-left: 1px solid #e8e8e8;
+    .control-btn {
+      color: #999;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .control-btn-active {
+      .cc-btn {
+        background-color: #eee;
+        color: #5890ff;
+      }
     }
   }
 }

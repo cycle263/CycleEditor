@@ -12,10 +12,9 @@ class ControlButton extends Component {
   }
 
   render() {
-    const { active, label, isLast, title } = this.props;
+    const { active, label, title } = this.props;
     return (
       <span title={title} className={classnames({
-        'last-btn': isLast,
         'control-btn': true,
         'control-btn-active': active,
       })} onMouseDown={this.onToggle}>
