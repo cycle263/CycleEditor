@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding, removeEditorStyles } from 'draft-js';
+import { Editor, EditorState, RichUtils, Modifier, getDefaultKeyBinding, removeEditorStyles } from 'draft-js';
 import EditorControls from './EditorControls';
 import './clean.scss';
+import { EDITOR_STYLE_MAP } from '../util/enum';
 import './App.scss';
 // import image from '../logo.svg';
 
@@ -17,6 +18,38 @@ class CycleEditor extends Component {
     this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
     this.toggleBlockType = this._toggleBlockType.bind(this);
     this.focus = () => this.editor.focus();
+    this.toggleColor = (toggledColor) => this._toggleColor(toggledColor);
+  }
+
+  _toggleColor(toggledColor) {
+    const {editorState} = this.state;
+    const selection = editorState.getSelection();
+    // Let's just allow one color at a time. Turn off all active colors.
+    const nextContentState = Object.keys(EDITOR_STYLE_MAP)
+      .filter(item => item !== 'CODE')
+      .reduce((contentState, color) => {
+        return Modifier.removeInlineStyle(contentState, selection, color)
+      }, editorState.getCurrentContent());
+    let nextEditorState = EditorState.push(
+      editorState,
+      nextContentState,
+      'change-inline-style'
+    );
+    const currentStyle = editorState.getCurrentInlineStyle();
+    // Unset style override for current color.
+    if (selection.isCollapsed()) {
+      nextEditorState = currentStyle.reduce((state, color) => {
+        return RichUtils.toggleInlineStyle(state, color);
+      }, nextEditorState);
+    }
+    // If the color is being toggled on, apply it.
+    if (!currentStyle.has(toggledColor)) {
+      nextEditorState = RichUtils.toggleInlineStyle(
+        nextEditorState,
+        toggledColor
+      );
+    }
+    this.onChange(nextEditorState);
   }
 
   _mapKeyToEditorCommand(e) {
@@ -71,6 +104,7 @@ class CycleEditor extends Component {
     const { editorState } = this.state;
     let placeholder = 'Enter some text...';
     let className = 'CycleEditor-editor';
+    let placeholder = 'Enter some text...';
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
@@ -82,14 +116,18 @@ class CycleEditor extends Component {
       <div>
         <h2 style={{textAlign: 'center'}}>Cycle Rich Editor</h2>
         <div className="CycleEditor-root">
-          <EditorControls editorState={editorState} onBlockToggle={this.toggleBlockType} onInlineToggle={this.toggleInlineStyle} />
+          <EditorControls editorState={editorState} 
+            onBlockToggle={this.toggleBlockType} 
+            onInlineToggle={this.toggleInlineStyle}
+            onColorToggle={this.toggleColor}
+             />
           <div className={className} onClick={this.focus}>
             <Editor editorState={editorState}
               blockStyleFn={getBlockStyle}
               keyBindingFn={this.mapKeyToEditorCommand}
               handleKeyCommand={this.handleKeyCommand}
               placeholder={placeholder}
-              customStyleMap={styleMap}
+              customStyleMap={EDITOR_STYLE_MAP}
               ref={(ref) => this.editor = ref}
               onChange={this.onChange}
               onPaste={this.onPaste}
@@ -100,16 +138,6 @@ class CycleEditor extends Component {
     );
   }
 }
-
-// Custom overrides for "code" style.
-const styleMap = {
-  CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2,
-  },
-};
 
 function getBlockStyle(block) {
   switch (block.getType()) {
