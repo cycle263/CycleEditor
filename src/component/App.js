@@ -104,7 +104,6 @@ class CycleEditor extends Component {
     const { editorState } = this.state;
     let placeholder = 'Enter some text...';
     let className = 'CycleEditor-editor';
-    let placeholder = 'Enter some text...';
     var contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
