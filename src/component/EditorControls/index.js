@@ -1,5 +1,5 @@
 import React from 'react';
-import { BLOCK_TYPES, INLINE_STYLES, COLOR_TYPES } from '../../util/enum';
+import { BLOCK_TYPES, INLINE_STYLES } from '../../util/enum';
 import ControlButton from '../ControlButton';
 import ControlSelect from '../ControlSelect';
 
@@ -42,7 +42,6 @@ const BlockControls = (props) => {
         <ControlSelect
           editorState={editorState}
           onToggle={onColorToggle}
-          options={COLOR_TYPES}
         />
       </div>
     </div>

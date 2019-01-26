@@ -19,16 +19,6 @@ const BLOCK_TYPES = [
   { label: 'codeblock', style: 'code-block', title: '代码块' },
 ];
 
-const COLOR_TYPES = [
-  {label: 'Red', style: 'red', title: '红色'},
-  {label: 'Orange', style: 'orange', title: '橘色'},
-  {label: 'Yellow', style: 'yellow', title: '黄色'},
-  {label: 'Green', style: 'green', title: '绿色'},
-  {label: 'Blue', style: 'blue', title: '蓝色'},
-  {label: 'Indigo', style: 'indigo', title: '紫蓝色'},
-  {label: 'Violet', style: 'violet', title: '紫罗兰'},
-];
-
 // Custom overrides for "code" style.
 const EDITOR_STYLE_MAP = {
   CODE: {
@@ -37,32 +27,11 @@ const EDITOR_STYLE_MAP = {
     fontSize: 16,
     padding: 2,
   },
-  red: {
-    color: 'rgba(255, 0, 0, 1.0)',
-  },
-  orange: {
-    color: 'rgba(255, 127, 0, 1.0)',
-  },
-  yellow: {
-    color: 'rgba(180, 180, 0, 1.0)',
-  },
-  green: {
-    color: 'rgba(0, 180, 0, 1.0)',
-  },
-  blue: {
-    color: 'rgba(0, 0, 255, 1.0)',
-  },
-  indigo: {
-    color: 'rgba(75, 0, 130, 1.0)',
-  },
-  violet: {
-    color: 'rgba(127, 0, 255, 1.0)',
-  },
 };
 
 const COLOR_MAP = [
   '#191919', '#3B3738', '#161616', '#000000',
-  '#2B2B2B', '#404040', '#585858', '#191919',
+  '#2B2B2B', '#404040', '#585858', '#190019',
   '#C63D0F', '#DE1B1B', '#FF4136', '#B22222',
   '#7D1935', '#B71427', '#FF0000', '#E44424',
   '#9370DB', '#B10DC9', '#FF69B4', '#FFC0CB',
@@ -82,6 +51,6 @@ const COLOR_MAP = [
 export {
   INLINE_STYLES,
   BLOCK_TYPES,
-  COLOR_TYPES,
   EDITOR_STYLE_MAP,
+  COLOR_MAP,
 };
