@@ -112,13 +112,14 @@ class CycleEditor extends Component {
       }
     }
     return (
-      <div>
+      <div className="container">
         <h2 style={{textAlign: 'center'}}>Cycle Rich Editor</h2>
         <div className="CycleEditor-root">
           <EditorControls editorState={editorState} 
             onBlockToggle={this.toggleBlockType} 
             onInlineToggle={this.toggleInlineStyle}
             onColorToggle={this.toggleColor}
+            onEditorFocus={this.focus}
              />
           <div className={className} onClick={this.focus}>
             <Editor editorState={editorState}
@@ -133,6 +134,7 @@ class CycleEditor extends Component {
               spellCheck={true} />
           </div>
         </div>
+        <footer><a target="_blank" rel="noopener noreferrer" href="https://draftjs.org/">Draft.js</a></footer>
       </div>
     );
   }
