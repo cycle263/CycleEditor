@@ -19,16 +19,6 @@ const BLOCK_TYPES = [
   { label: 'codeblock', style: 'code-block', title: '代码块' },
 ];
 
-// Custom overrides for "code" style.
-const EDITOR_STYLE_MAP = {
-  CODE: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2,
-  },
-};
-
 const COLOR_MAP = [
   '#191919', '#3B3738', '#161616', '#000000',
   '#2B2B2B', '#404040', '#585858', '#190019',
@@ -46,7 +36,31 @@ const COLOR_MAP = [
   '#AAAAAA', '#DDDDDD', '#DFE2DB', '#ECECEA',
   '#FDF3E7', '#FEFBEC', '#F6F6F6', '#FFFFFF',
   '#FAEBD7', '#F5F5F5', '#F8F8FF', '#FFFAF0'
-]
+];
+
+const COLOR_MAP_FUNC = (arr, type) => {
+  let obj = {};
+  arr.forEach(item => {
+    obj[`${type}_${item.replace('#', '')}`] = {[`${type}`]: item};
+  });
+  return obj;
+};
+
+// Custom overrides for "code" style.
+const EDITOR_STYLE_MAP = (() => {
+  const COLOR_MAP_STYLE = COLOR_MAP_FUNC(COLOR_MAP, 'color');
+  const BACKGROUND_COLOR_MAP_STYLE = COLOR_MAP_FUNC(COLOR_MAP, 'backgroundColor');
+  return {
+    CODE: {
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+      fontSize: 16,
+      padding: 2,
+    },
+    ...COLOR_MAP_STYLE,
+    ...BACKGROUND_COLOR_MAP_STYLE,
+  }
+})();
 
 export {
   INLINE_STYLES,

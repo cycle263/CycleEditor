@@ -16,7 +16,9 @@ class ControlSelect extends Component {
   }
 
   onToggle = (style) => {
-    this.props.onToggle( `color_${style.replace('#', '')}`);
+    const { onEditorFocus, onToggle, type } = this.props;
+    onEditorFocus();
+    onToggle( `${type}_${style.replace('#', '')}`);
     this.setState({ curColor: style, showList: false });
   };
 
@@ -27,7 +29,7 @@ class ControlSelect extends Component {
 
   render() {
     const { showList, curColor } = this.state;
-    const { editorState, title = '', iconColorSvg } = this.props;
+    const { editorState, title = '', iconColorSvg, type } = this.props;
     const curStyle = editorState.getCurrentInlineStyle();
     return (
       <span title={title} className="control-btn control-select">
@@ -45,7 +47,7 @@ class ControlSelect extends Component {
           })}>
           {
             COLOR_MAP.map(color => {
-              const s = `color_${color.replace('#', '')}`;
+              const s = `${type}_${color.replace('#', '')}`;
               return (
                 <span key={s} style={{border: curStyle.has(s) ? '1px solid #ccc' : null}} className="cc-btn-list-item" onMouseDown={(e) => {
                   e.preventDefault();

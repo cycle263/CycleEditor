@@ -10,7 +10,7 @@ class CycleEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
     };
     this.onChange = (editorState) => this.setState({ editorState });
     this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
@@ -38,6 +38,7 @@ class CycleEditor extends Component {
     const currentStyle = editorState.getCurrentInlineStyle();
     // Unset style override for current color.
     if (selection.isCollapsed()) {
+      console.log('selection')
       nextEditorState = currentStyle.reduce((state, color) => {
         return RichUtils.toggleInlineStyle(state, color);
       }, nextEditorState);
@@ -98,6 +99,10 @@ class CycleEditor extends Component {
     this.setState({
       editorState: removeEditorStyles(this.state.editorState)
     });
+  }
+
+  componentDidMount() {
+    this.focus();
   }
 
   render() {
