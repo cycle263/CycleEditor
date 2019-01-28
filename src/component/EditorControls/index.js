@@ -11,7 +11,7 @@ const backColorSvg = (color = '#F5222D') => {
 };
 
 const BlockControls = (props) => {
-  const { editorState = {}, onBlockToggle, onInlineToggle, onColorToggle, onEditorFocus } = props;
+  const { editorState = {}, onBlockToggle, onInlineToggle, onColorToggle, onEditorFocus, hideAllModal } = props;
   const selection = editorState.getSelection();
   const curStyle = editorState.getCurrentInlineStyle();
   const blockType = editorState
@@ -50,6 +50,7 @@ const BlockControls = (props) => {
           editorState={editorState}
           onToggle={onColorToggle}
           onEditorFocus={onEditorFocus}
+          hideAllModal={hideAllModal}
           type="color"
           iconColorSvg={fontColorSvg}
         />
@@ -57,6 +58,7 @@ const BlockControls = (props) => {
           editorState={editorState}
           onEditorFocus={onEditorFocus}
           onToggle={onColorToggle}
+          hideAllModal={hideAllModal}
           type="backgroundColor"
           iconColorSvg={backColorSvg}
         />

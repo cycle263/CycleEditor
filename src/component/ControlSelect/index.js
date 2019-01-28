@@ -17,12 +17,19 @@ class ControlSelect extends Component {
 
   onToggle = (style) => {
     const { onEditorFocus, onToggle, type } = this.props;
-    onEditorFocus();
+    // onEditorFocus();
     onToggle( `${type}_${style.replace('#', '')}`);
     this.setState({ curColor: style, showList: false });
   };
 
-  onToggleShow = () => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.hideAllModal === true) {
+      this.setState({ showList: false });
+    }
+  }
+
+  onToggleShow = (e) => {
+    e.stopPropagation();
     const { showList } = this.state;
     this.setState({ showList: !showList });
   }

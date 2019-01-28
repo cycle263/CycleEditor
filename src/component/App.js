@@ -11,6 +11,7 @@ class CycleEditor extends Component {
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
+      hideAllModal: false,
     };
     this.onChange = (editorState) => this.setState({ editorState });
     this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
@@ -24,9 +25,9 @@ class CycleEditor extends Component {
   _toggleColor(toggledColor) {
     const {editorState} = this.state;
     const selection = editorState.getSelection();
-    // Let's just allow one color at a time. Turn off all active colors.
+    // 当前光标区域只激活一个颜色
     const nextContentState = Object.keys(EDITOR_STYLE_MAP)
-      .filter(item => item !== 'CODE')
+      .filter(item => item.indexOf('color_') > -1)
       .reduce((contentState, color) => {
         return Modifier.removeInlineStyle(contentState, selection, color)
       }, editorState.getCurrentContent());
@@ -38,7 +39,6 @@ class CycleEditor extends Component {
     const currentStyle = editorState.getCurrentInlineStyle();
     // Unset style override for current color.
     if (selection.isCollapsed()) {
-      console.log('selection')
       nextEditorState = currentStyle.reduce((state, color) => {
         return RichUtils.toggleInlineStyle(state, color);
       }, nextEditorState);
@@ -50,6 +50,7 @@ class CycleEditor extends Component {
         toggledColor
       );
     }
+    console.log(currentStyle)
     this.onChange(nextEditorState);
   }
 
@@ -101,12 +102,26 @@ class CycleEditor extends Component {
     });
   }
 
+  hideAllModal = () => {
+    this.setState({
+      hideAllModal: true,
+    }, function(){
+      this.setState({
+        hideAllModal: false,
+      });
+    });
+  }
+
+  focusEnd = () => {
+    EditorState.moveFocusToEnd();
+  }
+
   componentDidMount() {
     this.focus();
   }
 
   render() {
-    const { editorState } = this.state;
+    const { editorState, hideAllModal } = this.state;
     let placeholder = 'Enter some text...';
     let className = 'CycleEditor-editor';
     var contentState = editorState.getCurrentContent();
@@ -117,7 +132,7 @@ class CycleEditor extends Component {
       }
     }
     return (
-      <div className="container">
+      <div className="container" onClick={this.hideAllModal}>
         <h2 style={{textAlign: 'center'}}>Cycle Rich Editor</h2>
         <div className="CycleEditor-root">
           <EditorControls editorState={editorState} 
@@ -125,7 +140,8 @@ class CycleEditor extends Component {
             onInlineToggle={this.toggleInlineStyle}
             onColorToggle={this.toggleColor}
             onEditorFocus={this.focus}
-             />
+            hideAllModal={hideAllModal}
+           />
           <div className={className} onClick={this.focus}>
             <Editor editorState={editorState}
               blockStyleFn={getBlockStyle}
