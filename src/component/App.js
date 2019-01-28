@@ -54,6 +54,27 @@ class CycleEditor extends Component {
     this.onChange(nextEditorState);
   }
 
+  _addLink() {
+    // @url 来自弹框的用户输入
+    const { editorState, url } = this.state;
+    const contentState = editorState.getCurrentContent();
+    // contentState上新建entity
+    const contentStateWithEntity = contentState.createEmpty('LINK', 'MUTABLE', { url });
+    // 获取新建entity的key
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    // 把entity的contentState set到editorState中
+    const newEditorState = EditorState.set(editorState, {
+      currentContent: contentStateWithEntity
+    });
+    // 对应entity和选中的文本内容
+    this.setState({
+      editorState: RichUtils.toggleLink(newEditorState, newEditorState.getSelection(), entityKey),
+      url: '',
+    }, () => {
+      setTimeout(() => this.editor.focus(), 0);
+    });
+  }
+
   _mapKeyToEditorCommand(e) {
     const { editorState } = this.state;
     switch (e.keyCode) {
