@@ -7,17 +7,21 @@ const INLINE_STYLES = [
 ];
 
 const BLOCK_TYPES = [
-  { label: 'h1', style: 'header-one', title: '标题1' },
-  { label: 'h2', style: 'header-two', title: '标题2' },
-  { label: 'h3', style: 'header-three', title: '标题3' },
-  { label: 'h4', style: 'header-four', title: '标题4' },
-  { label: 'h5', style: 'header-five', title: '标题5' },
-  { label: 'h6', style: 'header-six', title: '标题6' },
   { label: 'quote', style: 'blockquote', title: '引用' },
   { label: 'uList', style: 'unordered-list-item', title: '无序列表' },
   { label: 'oList', style: 'ordered-list-item', title: '有序列表' },
   { label: 'codeblock', style: 'code-block', title: '代码块' },
 ];
+
+const HEAD_TYPES = [
+  { label: 'p', style: 'unstyled', title: '正文', size: 14 },
+  { label: 'h1', style: 'header-one', title: '标题1', size: 28 },
+  { label: 'h2', style: 'header-two', title: '标题2', size: 24 },
+  { label: 'h3', style: 'header-three', title: '标题3', size: 20 },
+  { label: 'h4', style: 'header-four', title: '标题4', size: 16 },
+];
+
+const FONT_SIZE_TYPES = [12, 13, 14, 15, 16, 18, 20, 22, 24, 28, 32, 36];
 
 const COLOR_MAP = [
   '#191919', '#3B3738', '#161616', '#000000',
@@ -38,6 +42,16 @@ const COLOR_MAP = [
   '#FAEBD7', '#F5F5F5', '#F8F8FF', '#FFFAF0'
 ];
 
+// 字体选择器的样式map
+const FONT_SIZE_TYPES_FUNC = arr => {
+  let obj = {};
+  arr.forEach(item => {
+    obj[`font_size_${item}`] = { fontSize: item };
+  });
+  return obj;
+};
+
+// 颜色选择器的样式map
 const COLOR_MAP_FUNC = (arr, type) => {
   let obj = {};
   arr.forEach(item => {
@@ -46,10 +60,12 @@ const COLOR_MAP_FUNC = (arr, type) => {
   return obj;
 };
 
-// Custom overrides for "code" style.
+// 自定义样式map
 const EDITOR_STYLE_MAP = (() => {
-  const COLOR_MAP_STYLE = COLOR_MAP_FUNC(COLOR_MAP, 'color');
-  const BACKGROUND_COLOR_MAP_STYLE = COLOR_MAP_FUNC(COLOR_MAP, 'backgroundColor');
+  const COLOR_MAP_TYLE = COLOR_MAP_FUNC(COLOR_MAP, 'color');
+  const BACKGROUND_COLOR_MAP_TYLE = COLOR_MAP_FUNC(COLOR_MAP, 'backgroundColor');
+  const FONT_SIZE_TYPES_TYEP = FONT_SIZE_TYPES_FUNC(FONT_SIZE_TYPES);
+
   return {
     CODE: {
       backgroundColor: 'rgba(0, 0, 0, 0.05)',
@@ -57,8 +73,9 @@ const EDITOR_STYLE_MAP = (() => {
       fontSize: 16,
       padding: 2,
     },
-    ...COLOR_MAP_STYLE,
-    ...BACKGROUND_COLOR_MAP_STYLE,
+    ...COLOR_MAP_TYLE,
+    ...BACKGROUND_COLOR_MAP_TYLE,
+    ...FONT_SIZE_TYPES_TYEP,
   }
 })();
 
@@ -67,4 +84,6 @@ export {
   BLOCK_TYPES,
   EDITOR_STYLE_MAP,
   COLOR_MAP,
+  HEAD_TYPES,
+  FONT_SIZE_TYPES,
 };

@@ -1,0 +1,20 @@
+.control-head-select {
+  .cc-button-inner-text {
+    font-size: 13px;
+  }
+  .cc-btn-list {
+    min-width: 180px;
+    padding: 16px 24px;
+    color: #333;
+    .cc-head-item {
+      display: block;
+      padding: 4px 0;
+      > span {
+        line-height: 1.6em;
+      }
+      .cc-icon-checked {
+        float: right;
+      }
+    }
+  }
+}

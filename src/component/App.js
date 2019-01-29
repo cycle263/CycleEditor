@@ -4,7 +4,7 @@ import EditorControls from './EditorControls';
 import './clean.scss';
 import { EDITOR_STYLE_MAP } from '../util/enum';
 import './App.scss';
-// import image from '../logo.svg';
+import './block.scss'
 
 class CycleEditor extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ class CycleEditor extends Component {
     this.toggleColor = (toggledColor) => this._toggleColor(toggledColor);
   }
 
+  // 颜色toggle
   _toggleColor(toggledColor) {
     const {editorState} = this.state;
     const selection = editorState.getSelection();
@@ -50,10 +51,11 @@ class CycleEditor extends Component {
         toggledColor
       );
     }
-    console.log(currentStyle)
+    console.log(currentStyle, currentStyle.toJS())
     this.onChange(nextEditorState);
   }
 
+  // 增加超链接
   _addLink() {
     // @url 来自弹框的用户输入
     const { editorState, url } = this.state;
@@ -75,6 +77,7 @@ class CycleEditor extends Component {
     });
   }
 
+  // 编辑器命令
   _mapKeyToEditorCommand(e) {
     const { editorState } = this.state;
     switch (e.keyCode) {
@@ -123,6 +126,7 @@ class CycleEditor extends Component {
     });
   }
 
+  // 隐藏所有modal
   hideAllModal = () => {
     this.setState({
       hideAllModal: true,
@@ -160,6 +164,7 @@ class CycleEditor extends Component {
             onBlockToggle={this.toggleBlockType} 
             onInlineToggle={this.toggleInlineStyle}
             onColorToggle={this.toggleColor}
+            onHeadToggle={this.toggleBlockType}
             onEditorFocus={this.focus}
             hideAllModal={hideAllModal}
            />
@@ -183,10 +188,11 @@ class CycleEditor extends Component {
 }
 
 function getBlockStyle(block) {
-  switch (block.getType()) {
-    case 'blockquote': 
-      return 'CycleEditor-blockquote';
-    default: return null;
+  const type = block.getType();
+  if (type) {
+    return `CycleEditor-${type}`;
+  } else {
+    return null;
   }
 }
 

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
+import { SelectArrow, CheckedSvg } from '../common/commonSvgs';
 import { COLOR_MAP } from '../../util/enum';
 import './index.scss';
 
-const selectArrow = <svg width="12px" height="12px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4025"><path d="M0 0h1024v1024H0z" fill="#FFFFFF" p-id="4026"></path><path d="M872.384 352.704L512 813.44 151.616 352.704" fill="#8b8b8b" p-id="4027"></path></svg>
-const checkedSvg = <svg width="14px" height="14px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2652"><path d="M113.92 430.08a48 48 0 0 0-67.84 67.84l320 320a48 48 0 0 0 67.84 0l544-544a48 48 0 0 0-67.84-67.84L400 716.096l-286.08-286.08z" fill="#999999" p-id="2653"></path></svg>
-
-class ControlSelect extends Component {
+class ControlColorSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,11 +14,17 @@ class ControlSelect extends Component {
   }
 
   onToggle = (style) => {
-    const { onEditorFocus, onToggle, type } = this.props;
-    // onEditorFocus();
-    onToggle( `${type}_${style.replace('#', '')}`);
+    const { onToggle, type } = this.props;
+    onToggle(`${type}_${style.replace('#', '')}`);
     this.setState({ curColor: style, showList: false });
   };
+
+  onToggleShow = (e) => {
+    e.stopPropagation();
+    const { showList } = this.state;
+    this.setState({ showList: !showList });
+    this.props.onEditorFocus();
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.hideAllModal === true) {
@@ -28,24 +32,18 @@ class ControlSelect extends Component {
     }
   }
 
-  onToggleShow = (e) => {
-    e.stopPropagation();
-    const { showList } = this.state;
-    this.setState({ showList: !showList });
-  }
-
   render() {
     const { showList, curColor } = this.state;
-    const { editorState, title = '', iconColorSvg, type } = this.props;
+    const { editorState, iconColorSvg, type } = this.props;
     const curStyle = editorState.getCurrentInlineStyle();
     return (
-      <span title={title} className="control-btn control-select">
+      <span title={type} className="control-btn control-color-select">
         <div className="cc-btn-trigger" onClick={this.onToggleShow}>
           <button className="cc-btn">
             <span className="cc-icon cc-icon-svgs">{iconColorSvg(curColor)}</span>
           </button>
           <button style={{marginLeft: -6}} className="cc-btn cc-btn-arrow">
-            <span className="cc-icon cc-icon-svgs">{selectArrow}</span>
+            <span className="cc-icon cc-icon-svgs">{SelectArrow}</span>
           </button>
         </div>
         <div className={classnames({
@@ -55,13 +53,14 @@ class ControlSelect extends Component {
           {
             COLOR_MAP.map(color => {
               const s = `${type}_${color.replace('#', '')}`;
+              const isChecked = curStyle.has(s);
               return (
-                <span key={s} style={{border: curStyle.has(s) ? '1px solid #ccc' : null}} className="cc-btn-list-item" onMouseDown={(e) => {
+                <span key={s} style={{ border: isChecked ? '1px solid #ccc' : null}} className="cc-btn-list-item" onMouseDown={(e) => {
                   e.preventDefault();
                   this.onToggle(color);
                 }}>
                   <span style={{ backgroundColor: color }}></span>
-                  {curStyle.has(s) && <span className="cc-icon cc-icon-svgs cc-icon-checked">{checkedSvg}</span>}
+                  {isChecked && <span className="cc-icon cc-icon-svgs cc-icon-checked">{CheckedSvg}</span>}
                 </span>
               )
             })
@@ -72,4 +71,4 @@ class ControlSelect extends Component {
   }
 };
 
-export default ControlSelect;
+export default ControlColorSelect;

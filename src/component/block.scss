@@ -1,0 +1,30 @@
+.CycleEditor-editor {
+  .CycleEditor-blockquote {
+    border-left: 5px solid #eee;
+    color: #666;
+    font-family: Hoefler Text,Georgia,serif;
+    font-style: italic;
+    margin: 16px 0;
+    padding: 8px 16px;
+  }
+  .CycleEditor-header-one,
+  .CycleEditor-header-two,
+  .CycleEditor-header-three,
+  .CycleEditor-header-four, {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+    padding: 8px 0;
+    color: #333;
+    word-spacing: 1px;
+  }
+  .CycleEditor-header-two {
+    font-size: 24px;
+  }
+  .CycleEditor-header-three {
+    font-size: 24px;
+  }
+  .CycleEditor-header-four {
+    font-size: 24px;
+  }
+}

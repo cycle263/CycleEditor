@@ -43,6 +43,9 @@ html,body,#root,#root>div{
         color: #5890ff;
       }
     }
+    &:first-child {
+      border-left: none;
+    }
   }
 }
 

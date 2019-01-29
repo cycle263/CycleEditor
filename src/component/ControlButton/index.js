@@ -7,7 +7,7 @@ class ControlButton extends Component {
     super(props);
     this.onToggle = (e) => {
       e.preventDefault();
-      this.props.onToggle(this.props.style);
+      this.props.onToggle(props.style);
     };
   }
 

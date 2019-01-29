@@ -1,6 +1,6 @@
 @font-face {
   font-family: cc-icon;
-  src: url("../../font_1.woff") format("woff");
+  src: url("../../meta/font_1.woff") format("woff");
 }
 
 .cc-btn {
@@ -55,6 +55,13 @@
 }
 .cc-icon-strikethrough:before {
     content: "\E9DC"
+}
+.cc-icon-log {
+    background: url('../../meta/log1.png') no-repeat;
+    background-size: contain;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
 }
 .cc-icon-sub:before {
     content: "\E9FF"
