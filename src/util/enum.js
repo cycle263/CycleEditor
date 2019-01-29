@@ -14,14 +14,25 @@ const BLOCK_TYPES = [
 ];
 
 const HEAD_TYPES = [
-  { label: 'p', style: 'unstyled', title: '正文', size: 14 },
-  { label: 'h1', style: 'header-one', title: '标题1', size: 28 },
-  { label: 'h2', style: 'header-two', title: '标题2', size: 24 },
-  { label: 'h3', style: 'header-three', title: '标题3', size: 20 },
-  { label: 'h4', style: 'header-four', title: '标题4', size: 16 },
+  { style: 'unstyled', title: '正文', size: 14 },
+  { style: 'header-one', title: '标题1', size: 28 },
+  { style: 'header-two', title: '标题2', size: 24 },
+  { style: 'header-three', title: '标题3', size: 20 },
+  { style: 'header-four', title: '标题4', size: 16 },
 ];
 
-const FONT_SIZE_TYPES = [12, 13, 14, 15, 16, 18, 20, 22, 24, 28, 32, 36];
+const FONT_SIZE_TYPES = [
+  { style: 'font-12', title: '12号字体', size: 12 },
+  { style: 'font-13', title: '13号字体', size: 13 },
+  { style: 'font-14', title: '14号字体', size: 14 },
+  { style: 'font-16', title: '16号字体', size: 16 },
+  { style: 'font-18', title: '18号字体', size: 18 },
+  { style: 'font-20', title: '20号字体', size: 20 },
+  { style: 'font-24', title: '24号字体', size: 24 },
+  { style: 'font-28', title: '28号字体', size: 28 },
+  { style: 'font-32', title: '32号字体', size: 32 },
+  { style: 'font-36', title: '36号字体', size: 36 },
+];
 
 const COLOR_MAP = [
   '#191919', '#3B3738', '#161616', '#000000',
@@ -46,7 +57,7 @@ const COLOR_MAP = [
 const FONT_SIZE_TYPES_FUNC = arr => {
   let obj = {};
   arr.forEach(item => {
-    obj[`font_size_${item}`] = { fontSize: item };
+    obj[item.style] = { fontSize: item.size };
   });
   return obj;
 };

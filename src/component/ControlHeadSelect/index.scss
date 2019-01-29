@@ -4,11 +4,14 @@
   }
   .cc-btn-list {
     min-width: 180px;
-    padding: 16px 24px;
+    padding: 16px 0;
     color: #333;
     .cc-head-item {
       display: block;
-      padding: 4px 0;
+      padding: 4px 24px;
+      &:hover {
+        background-color: #f0f0f0;
+      }
       > span {
         line-height: 1.6em;
       }

@@ -164,7 +164,6 @@ class CycleEditor extends Component {
             onBlockToggle={this.toggleBlockType} 
             onInlineToggle={this.toggleInlineStyle}
             onColorToggle={this.toggleColor}
-            onHeadToggle={this.toggleBlockType}
             onEditorFocus={this.focus}
             hideAllModal={hideAllModal}
            />

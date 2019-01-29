@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { HEAD_TYPES } from '../../util/enum';
 import { SelectArrow, CheckedSvg } from '../common/commonSvgs';
 import './index.scss';
 
@@ -30,25 +29,28 @@ class ControlHeadSelect extends Component {
     }
   }
 
-  componentDidMount() {
-    this.onToggle(HEAD_TYPES[1].style);
-  }
-
   render() {
     const { showList } = this.state;
-    const { editorState, title = '' } = this.props;
+    const { editorState, title = '', selectStypes, fontDisabled } = this.props;
     const selection = editorState.getSelection();
     const blockType = editorState
       .getCurrentContent()
       .getBlockForKey(selection.getStartKey())
       .getType();
-    const selectedHead = HEAD_TYPES.filter(item => item.style === blockType)[0] || {};
+    let selectedHead = selectStypes.filter(item => item.style === blockType)[0];
+    let isDefaultValue = selectedHead === undefined;
+    const isHead = title === '标题正文';
+    selectedHead = isDefaultValue ? selectStypes[0] : selectedHead;
     
     return (
-      <span title={title} className="control-btn control-head-select">
-        <div className="cc-btn-trigger" onClick={this.onToggleShow}>
+      <span title={title} className={classnames({
+        'control-btn': true, 
+        'control-head-select': true,
+        'control-btn-disabeld': fontDisabled,
+      })}>
+        <div className="cc-btn-trigger" onClick={!fontDisabled ? this.onToggleShow : null}>
           <button className="cc-btn">
-            <span className="cc-button-inner-text">{selectedHead.title}</span>
+            <span className="cc-button-inner-text">{isHead ? selectedHead.title : selectedHead.size}</span>
           </button>
           <button style={{ marginLeft: -6 }} className="cc-btn cc-btn-arrow">
             <span className="cc-icon cc-icon-svgs">{SelectArrow}</span>
@@ -59,14 +61,14 @@ class ControlHeadSelect extends Component {
           "cc-btn-list-active": showList,
         })}>
           {
-            HEAD_TYPES.map(option => {
-              const isChecked = blockType === option.style;
+            selectStypes.map((option, i) => {
+              const isChecked = blockType === option.style || (isDefaultValue && i === 0);
               return (
-                <span key={option.style} className="cc-head-item" onMouseDown={(e) => {
+                <span key={option.style} title={option.title} className="cc-head-item" onMouseDown={(e) => {
                   e.preventDefault();
                   this.onToggle(option.style);
                 }}>
-                  <span style={{ fontSize: option.size, fontWeight: option.style !== 'unstyled' ? 700 : null }}>{option.title}</span>
+                  <span style={{ fontSize: isHead ? option.size : 14, fontWeight: option.style !== 'unstyled' ? 700 : null }}>{isHead ? option.title : option.size}</span>
                   {isChecked && <span className="cc-icon cc-icon-svgs cc-icon-checked">{CheckedSvg}</span>}
                 </span>
               )
