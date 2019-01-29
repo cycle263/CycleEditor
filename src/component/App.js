@@ -158,7 +158,7 @@ class CycleEditor extends Component {
     }
     return (
       <div className="container" onClick={this.hideAllModal}>
-        <h2 style={{textAlign: 'center'}}>Cycle Rich Editor</h2>
+        <h2 style={{ textAlign: 'center' }}>Cycle Rich Editor</h2>
         <div className="CycleEditor-root">
           <EditorControls editorState={editorState} 
             onBlockToggle={this.toggleBlockType} 
