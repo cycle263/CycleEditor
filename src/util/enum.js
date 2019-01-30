@@ -4,13 +4,24 @@ const INLINE_STYLES = [
   { label: 'underline', style: 'UNDERLINE', title: '下划线' },
   { label: 'code', style: 'CODE', title: '代码' },
   { label: 'strikethrough', style: 'STRIKETHROUGH', title: '删除线' },
+  { label: 'link', style: 'ADDLINK', title: '插入链接' },
 ];
 
 const BLOCK_TYPES = [
+  { label: 'left', style: 'align-left', title: '左对齐' },
+  { label: 'center', style: 'align-center', title: '居中对齐' },
+  { label: 'right', style: 'align-right', title: '右对齐' },
+  { label: 'justify', style: 'align-justify', title: '两端对齐' },
   { label: 'quote', style: 'blockquote', title: '引用' },
   { label: 'uList', style: 'unordered-list-item', title: '无序列表' },
   { label: 'oList', style: 'ordered-list-item', title: '有序列表' },
   { label: 'codeblock', style: 'code-block', title: '代码块' },
+  { label: 'table', style: 'add-table', title: '插入表格' },
+  { label: 'image', style: 'add-image', title: '插入图片' },
+  { label: 'video', style: 'add-video', title: '插入视频' },
+  { label: 'indent-left', style: 'text-indent-left', title: '减少缩进' },
+  { label: 'indent-right', style: 'text-indent-right', title: '增加缩进' },
+  { label: 'clean', style: 'clean-format', title: '清除格式' },
 ];
 
 const HEAD_TYPES = [

@@ -49,18 +49,6 @@ const BlockControls = (props) => {
         />
       </div>
       <div className="controls-area">
-        {BLOCK_TYPES.map((type, i) =>
-          <ControlButton
-            key={type.label}
-            title={type.title}
-            active={type.style === blockType}
-            label={type.label}
-            onToggle={onBlockToggle}
-            style={type.style}
-          />
-        )}
-      </div>
-      <div className="controls-area">
         <ControlColorSelect
           onToggle={onColorToggle}
           {...commonProps}
@@ -75,6 +63,18 @@ const BlockControls = (props) => {
           title="背景颜色"
           iconColorSvg={backColorSvg}
         />
+      </div>
+      <div className="controls-area">
+        {BLOCK_TYPES.map((type, i) =>
+          <ControlButton
+            key={type.label}
+            title={type.title}
+            active={type.style === blockType}
+            label={type.label}
+            onToggle={onBlockToggle}
+            style={type.style}
+          />
+        )}
       </div>
       <div className="controls-area">
         {INLINE_STYLES.map((type, i) =>
