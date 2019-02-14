@@ -1,5 +1,5 @@
 import React from 'react';
-import { BLOCK_TYPES, INLINE_STYLES } from '../../util/enum';
+import { BLOCK_TYPES, INLINE_STYLES, FONT_SIZE_TYPES, HEAD_TYPES } from '../../util/enum';
 import ControlButton from '../ControlButton';
 import ControlColorSelect from '../ControlColorSelect';
 import ControlHeadSelect from '../ControlHeadSelect';
@@ -23,6 +23,7 @@ const BlockControls = (props) => {
     .getCurrentContent()
     .getBlockForKey(selection.getStartKey())
     .getType();
+  const fontDisabled = blockType.indexOf('header-') > -1;
 
   const commonProps = {
     editorState,
@@ -35,7 +36,34 @@ const BlockControls = (props) => {
       <div className="controls-area">
         <ControlHeadSelect
           {...commonProps}
-          onToggle={onHeadToggle}
+          title="标题正文"
+          selectStypes={HEAD_TYPES}
+          onToggle={onBlockToggle}
+        />
+        <ControlHeadSelect
+          {...commonProps}
+          title="字体大小"
+          fontDisabled={fontDisabled}
+          selectStypes={FONT_SIZE_TYPES}
+          onToggle={onBlockToggle}
+        />
+      </div>
+      <div className="controls-area">
+        <ControlColorSelect
+          onToggle={onColorToggle}
+          {...commonProps}
+          type="color"
+          color={curColor}
+          title="字体颜色"
+          iconColorSvg={fontColorSvg}
+        />
+        <ControlColorSelect
+          {...commonProps}
+          onToggle={onColorToggle}
+          type="backgroundColor"
+          color={curBackgroundColor}
+          title="背景颜色"
+          iconColorSvg={backColorSvg}
         />
       </div>
       <div className="controls-area">
@@ -51,25 +79,10 @@ const BlockControls = (props) => {
         )}
       </div>
       <div className="controls-area">
-        <ControlColorSelect
-          onToggle={onColorToggle}
-          {...commonProps}
-          type="color"
-          color={curColor}
-          iconColorSvg={fontColorSvg}
-        />
-        <ControlColorSelect
-          {...commonProps}
-          onToggle={onColorToggle}
-          type="backgroundColor"
-          color={curBackgroundColor}
-          iconColorSvg={backColorSvg}
-        />
-      </div>
-      <div className="controls-area">
         {INLINE_STYLES.map((type, i) =>
           <ControlButton
             key={type.label}
+            fontDisabled={fontDisabled && type.style === 'BOLD'}
             title={type.title}
             active={curStyle.has(type.style)}
             label={type.label}

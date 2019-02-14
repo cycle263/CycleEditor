@@ -12,12 +12,14 @@ class ControlButton extends Component {
   }
 
   render() {
-    const { active, label, title } = this.props;
+    const { active, label, title, fontDisabled } = this.props;
+
     return (
       <span title={title} className={classnames({
         'control-btn': true,
         'control-btn-active': active,
-      })} onMouseDown={this.onToggle}>
+        'control-btn-disabeld': fontDisabled,
+      })} onMouseDown={!fontDisabled ? this.onToggle : null}>
         <button className="cc-btn"><span className={classnames(['cc-icon', `cc-icon-${label}`])}></span></button>
       </span>
     )

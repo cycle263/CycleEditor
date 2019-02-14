@@ -32,11 +32,11 @@ class ControlColorSelect extends Component {
 
   render() {
     const { showList } = this.state;
-    const { editorState, iconColorSvg, type, color } = this.props;
+    const { editorState, iconColorSvg, type, color, title } = this.props;
     const curStyle = editorState.getCurrentInlineStyle();
 
     return (
-      <span title={type} className="control-btn control-color-select">
+      <span title={title} className="control-btn control-color-select">
         <div className="cc-btn-trigger" onClick={this.onToggleShow}>
           <button className="cc-btn">
             <span className="cc-icon cc-icon-svgs">{iconColorSvg(color)}</span>
