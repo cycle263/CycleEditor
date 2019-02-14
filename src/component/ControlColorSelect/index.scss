@@ -1,7 +1,6 @@
 .CycleEditor-controls .controls-area {
   .control-btn {
     position: relative;
-    z-index: 10;
     &.control-btn-disabeld {
       cursor: not-allowed;
       background-color: rgba(0,0,0,0);
