@@ -36,13 +36,13 @@ class ControlHeadSelect extends Component {
 
   render() {
     const { showList } = this.state;
-    const { editorState, title = '' } = this.props;
+    const { editorState, title = '', } = this.props;
     const selection = editorState.getSelection();
     const blockType = editorState
       .getCurrentContent()
       .getBlockForKey(selection.getStartKey())
       .getType();
-    const selectedHead = HEAD_TYPES.filter(item => item.style === blockType)[0] || {};
+    const selectedHead = HEAD_TYPES.filter(item => item.style === blockType)[0] || HEAD_TYPES[0];
     
     return (
       <span title={title} className="control-btn control-head-select">

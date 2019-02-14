@@ -16,7 +16,7 @@ const logState = (editorState) => {
 
 const BlockControls = (props) => {
   const { editorState = {}, onBlockToggle, onInlineToggle, onColorToggle, onEditorFocus, 
-    onHeadToggle, hideAllModal } = props;
+    onHeadToggle, hideAllModal, curBackgroundColor, curColor } = props;
   const selection = editorState.getSelection();
   const curStyle = editorState.getCurrentInlineStyle();
   const blockType = editorState
@@ -55,12 +55,14 @@ const BlockControls = (props) => {
           onToggle={onColorToggle}
           {...commonProps}
           type="color"
+          color={curColor}
           iconColorSvg={fontColorSvg}
         />
         <ControlColorSelect
           {...commonProps}
           onToggle={onColorToggle}
           type="backgroundColor"
+          color={curBackgroundColor}
           iconColorSvg={backColorSvg}
         />
       </div>

@@ -12,6 +12,8 @@ class CycleEditor extends Component {
     this.state = {
       editorState: EditorState.createEmpty(),
       hideAllModal: false,
+      curColor: '',
+      curBackgroundColor: '',
     };
     this.onChange = (editorState) => this.setState({ editorState });
     this.mapKeyToEditorCommand = this._mapKeyToEditorCommand.bind(this);
@@ -19,19 +21,34 @@ class CycleEditor extends Component {
     this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
     this.toggleBlockType = this._toggleBlockType.bind(this);
     this.focus = () => this.editor.focus();
-    this.toggleColor = (toggledColor) => this._toggleColor(toggledColor);
+    this.toggleColor = (toggledColor, type) => {
+      if (type === 'color')
+        this.setState({ curColor: toggledColor });
+      else
+        this.setState({ curBackgroundColor: toggledColor });
+      this._toggleColor(toggledColor, type);
+    };
   }
 
   // 颜色toggle
-  _toggleColor(toggledColor) {
+  _toggleColor(toggledColor, type) {
+    let nextContentState;
     const {editorState} = this.state;
     const selection = editorState.getSelection();
     // 当前光标区域只激活一个颜色
-    const nextContentState = Object.keys(EDITOR_STYLE_MAP)
-      .filter(item => item.indexOf('color_') > -1)
-      .reduce((contentState, color) => {
-        return Modifier.removeInlineStyle(contentState, selection, color)
-      }, editorState.getCurrentContent());
+    if (type === 'color')
+      nextContentState = Object.keys(EDITOR_STYLE_MAP)
+        .filter(item => item.indexOf('color_') > -1)
+        .reduce((contentState, color) => {
+          return Modifier.removeInlineStyle(contentState, selection, color)
+        }, editorState.getCurrentContent());
+    else
+      nextContentState = Object.keys(EDITOR_STYLE_MAP)
+        .filter(item => item.indexOf('backgroundColor_') > -1)
+        .reduce((contentState, color) => {
+          return Modifier.removeInlineStyle(contentState, selection, color)
+        }, editorState.getCurrentContent());
+
     let nextEditorState = EditorState.push(
       editorState,
       nextContentState,
@@ -45,13 +62,13 @@ class CycleEditor extends Component {
       }, nextEditorState);
     }
     // If the color is being toggled on, apply it.
+    console.log(currentStyle.toJS(), toggledColor);
     if (!currentStyle.has(toggledColor)) {
       nextEditorState = RichUtils.toggleInlineStyle(
         nextEditorState,
         toggledColor
       );
     }
-    console.log(currentStyle, currentStyle.toJS())
     this.onChange(nextEditorState);
   }
 
@@ -128,6 +145,7 @@ class CycleEditor extends Component {
 
   // 隐藏所有modal
   hideAllModal = () => {
+    console.log(this.state.editorState.getCurrentInlineStyle().toJS());
     this.setState({
       hideAllModal: true,
     }, function(){
@@ -137,16 +155,12 @@ class CycleEditor extends Component {
     });
   }
 
-  focusEnd = () => {
-    EditorState.moveFocusToEnd();
-  }
-
   componentDidMount() {
     this.focus();
   }
 
   render() {
-    const { editorState, hideAllModal } = this.state;
+    const { editorState, hideAllModal, curColor, curBackgroundColor, } = this.state;
     let placeholder = 'Enter some text...';
     let className = 'CycleEditor-editor';
     var contentState = editorState.getCurrentContent();
@@ -167,7 +181,9 @@ class CycleEditor extends Component {
             onHeadToggle={this.toggleBlockType}
             onEditorFocus={this.focus}
             hideAllModal={hideAllModal}
-           />
+            curColor={curColor}
+            curBackgroundColor={curBackgroundColor}
+         />
           <div className={className} onClick={this.focus}>
             <Editor editorState={editorState}
               blockStyleFn={getBlockStyle}

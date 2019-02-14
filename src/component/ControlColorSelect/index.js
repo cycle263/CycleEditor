@@ -9,14 +9,12 @@ class ControlColorSelect extends Component {
     super(props);
     this.state = {
       showList: false,
-      curColor: '',
     }
   }
 
   onToggle = (style) => {
     const { onToggle, type } = this.props;
-    onToggle(`${type}_${style.replace('#', '')}`);
-    this.setState({ curColor: style, showList: false });
+    onToggle(`${type}_${style.replace('#', '')}`, type);
   };
 
   onToggleShow = (e) => {
@@ -33,14 +31,15 @@ class ControlColorSelect extends Component {
   }
 
   render() {
-    const { showList, curColor } = this.state;
-    const { editorState, iconColorSvg, type } = this.props;
+    const { showList } = this.state;
+    const { editorState, iconColorSvg, type, color } = this.props;
     const curStyle = editorState.getCurrentInlineStyle();
+
     return (
       <span title={type} className="control-btn control-color-select">
         <div className="cc-btn-trigger" onClick={this.onToggleShow}>
           <button className="cc-btn">
-            <span className="cc-icon cc-icon-svgs">{iconColorSvg(curColor)}</span>
+            <span className="cc-icon cc-icon-svgs">{iconColorSvg(color)}</span>
           </button>
           <button style={{marginLeft: -6}} className="cc-btn cc-btn-arrow">
             <span className="cc-icon cc-icon-svgs">{SelectArrow}</span>
