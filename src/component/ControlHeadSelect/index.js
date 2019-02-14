@@ -37,7 +37,7 @@ class ControlHeadSelect extends Component {
       .getCurrentContent()
       .getBlockForKey(selection.getStartKey())
       .getType();
-    let selectedHead = selectStypes.filter(item => item.style === blockType)[0] || HEAD_TYPES[0];
+    let selectedHead = selectStypes.filter(item => item.style === blockType)[0] || selectStypes[0];
     let isDefaultValue = selectedHead === undefined;
     const isHead = title === '标题正文';
     selectedHead = isDefaultValue ? selectStypes[0] : selectedHead;

@@ -145,7 +145,6 @@ class CycleEditor extends Component {
 
   // 隐藏所有modal
   hideAllModal = () => {
-    console.log(this.state.editorState.getCurrentInlineStyle().toJS());
     this.setState({
       hideAllModal: true,
     }, function(){
