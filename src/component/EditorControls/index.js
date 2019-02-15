@@ -16,7 +16,7 @@ const logState = (editorState) => {
 
 const BlockControls = (props) => {
   const { editorState = {}, onBlockToggle, onInlineToggle, onColorToggle, onEditorFocus, 
-    onHeadToggle, hideAllModal, curBackgroundColor, curColor } = props;
+    hideAllModal, curBackgroundColor, curColor } = props;
   const selection = editorState.getSelection();
   const curStyle = editorState.getCurrentInlineStyle();
   const blockType = editorState

@@ -64,9 +64,8 @@ class CycleEditor extends Component {
     // If the color is being toggled on, apply it.
     console.log(currentStyle.toJS(), toggledColor);
     if (!currentStyle.has(toggledColor)) {
-      nextEditorState = Modifier.applyInlineStyle(
+      nextEditorState = RichUtils.toggleInlineStyle(
         nextEditorState,
-        selection,
         toggledColor
       );
     }
