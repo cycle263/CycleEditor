@@ -33,8 +33,9 @@ class CycleEditor extends Component {
   // 颜色toggle
   _toggleColor(toggledColor, type) {
     let nextContentState;
-    const {editorState} = this.state;
+    const { editorState } = this.state;
     const selection = editorState.getSelection();
+
     // 当前光标区域只激活一个颜色
     if (type === 'color')
       nextContentState = Object.keys(EDITOR_STYLE_MAP)
@@ -48,19 +49,19 @@ class CycleEditor extends Component {
         .reduce((contentState, color) => {
           return Modifier.removeInlineStyle(contentState, selection, color)
         }, editorState.getCurrentContent());
-
     let nextEditorState = EditorState.push(
       editorState,
       nextContentState,
       'change-inline-style'
     );
+
     const currentStyle = editorState.getCurrentInlineStyle();
     // Unset style override for current color.
-    if (selection.isCollapsed()) {
+    // if (selection.isCollapsed()) {
       nextEditorState = currentStyle.reduce((state, color) => {
         return RichUtils.toggleInlineStyle(state, color);
       }, nextEditorState);
-    }
+    // }
     // If the color is being toggled on, apply it.
     console.log(currentStyle.toJS(), toggledColor);
     if (!currentStyle.has(toggledColor)) {

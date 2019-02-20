@@ -53,7 +53,7 @@ const BlockControls = (props) => {
           onToggle={onColorToggle}
           {...commonProps}
           type="color"
-          color={curColor}
+          curColor={curColor}
           title="字体颜色"
           iconColorSvg={fontColorSvg}
         />
@@ -61,7 +61,7 @@ const BlockControls = (props) => {
           {...commonProps}
           onToggle={onColorToggle}
           type="backgroundColor"
-          color={curBackgroundColor}
+          curColor={curBackgroundColor}
           title="背景颜色"
           iconColorSvg={backColorSvg}
         />
