@@ -14,6 +14,8 @@ You will also see any lint errors in the console.
 
 ![RichEditor](./src/meta/demo.png)
 
+### [中文](./README_CN.md)
+
 ### `Editor API`
 
 To be continued...
